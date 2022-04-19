@@ -49,3 +49,12 @@ Population::Population() {
         freeId.push_back(i);
     }
 }
+
+Animal Population::get(int id) {
+    for(int i = 0; i < 400; i++) {
+        if(pop[i].getId() == id) {
+            return pop[i];
+        }
+    }
+    return *(new Animal{});
+}

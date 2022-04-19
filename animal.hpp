@@ -39,9 +39,13 @@ public:
     Population();
 
     //methods
-    get(int id);
+    Animal get(int id);
 
-    getIds(Espece type);
+    int getIds(Espece type);
+
+    int reserve();
+
+    void set(Espece type);
 //private:
     Animal pop[400];
     vector<int> freeId;
