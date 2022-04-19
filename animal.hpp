@@ -71,4 +71,15 @@ private:
     vector<vector<Animal>> board;
 };
 
+struct Jeu {
+public:
+    Jeu();
+
+    void ajouteAnimal(Espece type, Coord coord);
+
+private:
+    Population jPop;
+    Grille jGri;
+};
+
 #endif // ANIMAL_HPP_INCLUDED

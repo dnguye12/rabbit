@@ -83,12 +83,13 @@ int Population::reserve() {
     }
 }
 
-void Population::set(Espece type, Coord c) {
+int Population::set(Espece type, Coord c) {
     int id = reserve();
     if(id == -1) {
         return;
     }
     pop[id] = *(new Animal{id, type, c});
+    return id;
 }
 
 void Population::supprime(int id) {
@@ -136,4 +137,17 @@ void Grille::setCase(int id, Espece e, Coord c) {
         return;
     }
     board[c.getLin()][c.getCol()] = *(new Animal{id, e, c});
+}
+
+
+
+
+void Jeu::ajouteAnimal(Espece type, Coord coord){
+    int helper = jPop.set(type, coord);
+    jGri.setCase(helper, type, coord);
+
+}
+
+Jeu::Jeu() {
+
 }
