@@ -1,6 +1,7 @@
 #ifndef UTIL_HPP_INCLUDED
 #define UTIL_HPP_INCLUDED
 
+#include <iostream>
 #include <vector>
 
 //#include "animal.hpp"
@@ -14,11 +15,12 @@ private:
     int col;
 public:
     Coord();
+
     Coord(int a, int b);
 
-    int getLin();
-    int getCol();
-
+    int getLin() const;
+    int getCol() const;
+    vector<Coord> voisins(Coord c) const;
 
 };
 
@@ -70,6 +72,8 @@ public:
     //* @param[in] o : l'objet avec qu'il faut vérifier
     bool contient(Objet o) const;
 
+    int size() const;
+
 private:
 
     // Déclarer l'attribut ici
@@ -77,6 +81,8 @@ private:
     vector<Objet> set_;
 
 };
+
+ostream &operator<<(ostream &out, Ensemble e);
 
 #endif // UTIL_HPP_INCLUDED
 

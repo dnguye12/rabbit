@@ -15,14 +15,31 @@ Coord::Coord(int a, int b): lin{a}, col{b}
     }
 }
 
-int Coord::getLin()
+int Coord::getLin() const
 {
     return lin;
 }
 
-int Coord::getCol()
+int Coord::getCol() const
 {
     return col;
+}
+
+vector<Coord> Coord::voisins(Coord c) const {
+    vector<Coord> helper;
+    int lin = c.getLin();
+    int col = c.getCol();
+
+    for(int l = lin -1 ; l <= lin +1 ; l++) {
+        for(int c = col - 1 ; c <= col +1; c++) {
+            if(c > 19 or l > 19 or c <0 or l <0 or  (c == col and l == lin)) {
+                continue;
+            }else {
+                helper.push_back(*(new Coord{lin, col}));
+            }
+        }
+    }
+    return helper;
 }
 
 bool operator==(Coord c1, Coord c2) {
@@ -94,5 +111,26 @@ bool Ensemble::contient(Objet o) const
     }
     return true;
 }
+
+int Ensemble::size() const {
+    return set_.size();
+}
+
+ostream &operator<<(ostream &out, Ensemble e)
+{
+    // Remplacer la ligne suivante par le code adéquat
+    vector<Objet> helper;
+    while(not e.estVide())
+    {
+        helper.push_back(e.element());
+        e.retire(e.element());
+    }
+    for(int i = 0; i < helper.size(); i++)
+    {
+        out << helper[i] << endl;
+    }
+    return out;
+}
+
 
 

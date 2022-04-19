@@ -22,7 +22,17 @@ int main()
 
     Population p {};
 
-    cout << p.pop[0].toString();
+    //cout << p.reserve()<< endl << p.reserve() << endl;
+
+    Coord c1{5,6};
+    Coord c2{5,5};
+
+    p.set(Espece::lapin, c1);
+    p.set(Espece::lapin, c2);
+
+    cout << p.get(0).toString() << endl;
+
+    cout << p.getIds(Espece::lapin);
 
     return 0;
 }

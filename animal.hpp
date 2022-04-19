@@ -20,15 +20,15 @@ public:
     Animal(int id, Espece type, Coord coord);
 
     //Methods
-    int getId();
+    int getId() const;
 
-    Coord getCoord();
+    Coord getCoord() const;
 
     void setCoord(Coord c);
 
-    Espece getEspece();
+    Espece getEspece() const;
 
-    string toString();
+    string toString() const;
 };
 
 
@@ -39,16 +39,36 @@ public:
     Population();
 
     //methods
-    Animal get(int id);
+    Animal get(int id) const;
 
-    int getIds(Espece type);
+    Ensemble getIds(Espece type) const;
 
     int reserve();
 
-    void set(Espece type);
-//private:
+    void set(Espece type, Coord c);
+
+    void supprime(int id);
+private:
     Animal pop[400];
     vector<int> freeId;
+};
+
+
+
+struct Grille {
+public:
+    Grille();
+
+    bool caseVide(Coord c) const;
+
+    int getCase(Coord c) const;
+
+    void videCase(Coord c);
+
+    void setCase(int id, Espece e, Coord c);
+
+private:
+    vector<vector<Animal>> board;
 };
 
 #endif // ANIMAL_HPP_INCLUDED
