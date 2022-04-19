@@ -1,5 +1,9 @@
 #include "animal.hpp"
 
+Animal::Animal() {
+    aType = Espece::rien;
+}
+
 Animal::Animal(int id, Espece type, Coord coord)
 {
     aId = id;
@@ -26,5 +30,22 @@ Espece Animal::getEspece() {
 }
 
 string Animal::toString() {
+    switch(aType) {
+    case Espece::lapin:
+        return "Lapin";
+    case Espece::renard:
+        return "Renard";
+    default:
+        return " ";
+    }
+}
 
+
+
+
+Population::Population() {
+    //pop = Animal[400];
+    for(int i = 0; i < 400; i++) {
+        freeId.push_back(i);
+    }
 }

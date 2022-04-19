@@ -2,7 +2,7 @@
 
 using namespace std;
 
-#include "util.hpp"
+#include "animal.hpp"
 
 int main()
 {
@@ -13,6 +13,16 @@ int main()
 
     cout << (c1 == c2) << endl;
     cout << (c2==c3) << endl;*/
+
+    /*
+    Animal a{20, Espece::lapin, *(new Coord{10,11})};
+    cout << a.getId() << endl;
+    cout << a.getCoord().getCol() << " " << a.getCoord().getLin() << endl;
+    cout << a.toString() << endl;*/
+
+    Population p {};
+
+    cout << p.pop[0].toString();
 
     return 0;
 }
