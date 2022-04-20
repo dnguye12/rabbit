@@ -1,4 +1,5 @@
 #include <iostream>
+#include <random>
 
 using namespace std;
 
@@ -20,6 +21,7 @@ int main()
     cout << a.getCoord().getCol() << " " << a.getCoord().getLin() << endl;
     cout << a.toString() << endl;*/
 
+    /*
     Population p {};
 
     //cout << p.reserve()<< endl << p.reserve() << endl;
@@ -32,7 +34,11 @@ int main()
 
     cout << p.get(0).toString() << endl;
 
-    cout << p.getIds(Espece::lapin);
+    cout << p.getIds(Espece::lapin);*/
+
+    Jeu j{};
+
+    j.affiche();
 
     return 0;
 }

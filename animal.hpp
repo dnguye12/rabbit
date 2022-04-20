@@ -45,7 +45,7 @@ public:
 
     int reserve();
 
-    void set(Espece type, Coord c);
+    int set(Espece type, Coord c);
 
     void supprime(int id);
 private:
@@ -67,6 +67,8 @@ public:
 
     void setCase(int id, Espece e, Coord c);
 
+    string printCase(Coord c) const;
+
 private:
     vector<vector<Animal>> board;
 };
@@ -76,6 +78,8 @@ public:
     Jeu();
 
     void ajouteAnimal(Espece type, Coord coord);
+
+    void affiche();
 
 private:
     Population jPop;

@@ -20,6 +20,10 @@ public:
 
     int getLin() const;
     int getCol() const;
+
+    void setLin(int i);
+    void setCol(int i);
+
     vector<Coord> voisins(Coord c) const;
 
 };

@@ -25,6 +25,13 @@ int Coord::getCol() const
     return col;
 }
 
+void Coord::setLin(int i) {
+    lin = i;
+}
+void Coord::setCol(int i) {
+    col = i;
+}
+
 vector<Coord> Coord::voisins(Coord c) const {
     vector<Coord> helper;
     int lin = c.getLin();
