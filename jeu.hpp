@@ -4,8 +4,9 @@
 #include "animal.hpp"
 #include "population.hpp"
 #include "grille.hpp"
+#include "ensemble.hpp"
 
-struct Jeu {
+class Jeu {
 public:
     Jeu();
 

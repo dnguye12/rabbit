@@ -25,9 +25,6 @@ public:
     int getLin() const;
     int getCol() const;
 
-    void setLin(int i);
-    void setCol(int i);
-
     int toInt() const;
 
     vector<Coord> voisins() const;

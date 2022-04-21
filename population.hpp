@@ -2,10 +2,11 @@
 #define POPULATION_HPP_INCLUDED
 
 #include "animal.hpp"
+#include "ensemble.hpp"
 
 #include <vector>
 
-struct Population {
+class Population {
 public:
     //constructor
     Population();

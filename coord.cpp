@@ -1,4 +1,5 @@
 #include "coord.hpp"
+#include "doctest.h"
 #include <stdexcept>
 
 using namespace std;
@@ -32,12 +33,6 @@ int Coord::getCol() const
     return col;
 }
 
-void Coord::setLin(int i) {
-    lin = i;
-}
-void Coord::setCol(int i) {
-    col = i;
-}
 
 int Coord::toInt() const {
     return lin * TAILLEGRILLE + col;
@@ -59,7 +54,8 @@ vector<Coord> Coord::voisins() const {
 }
 
 ostream &operator<<(ostream &out, Coord c) {
-    cout << c.getLin() << ":" << c.getCol();
+    out << c.getLin() << ":" << c.getCol();
+    return out;
 }
 
 bool operator==(Coord c1, Coord c2) {
@@ -69,3 +65,15 @@ bool operator==(Coord c1, Coord c2) {
 bool operator!=(Coord c1, Coord c2) {
     return not(c2 == c1);
 }
+
+TEST_CASE("Coord test")
+{
+    Coord c1{5,6};
+    Coord c2{5,5};
+    Coord c3{5,5};
+    Coord c4{19,19};
+    CHECK(c1 != c2);
+    CHECK(c3 == c2);
+    CHECK(c4.toInt() == 399);
+}
+

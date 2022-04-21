@@ -10,7 +10,7 @@ using namespace std;
 
 enum class Espece {renard, lapin, rien};
 
-struct Animal {
+class Animal {
 private:
     int aId;
     Espece aType;

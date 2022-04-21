@@ -4,7 +4,7 @@
 #include "coord.hpp"
 #include "animal.hpp"
 
-struct Grille {
+class Grille {
 public:
     Grille();
 

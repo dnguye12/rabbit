@@ -65,7 +65,7 @@ void Jeu::affiche() const
         }
         cout << endl;
     }
-    cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
+    //cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
 }
 
 bool Jeu::verifieGrille() const
