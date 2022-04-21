@@ -24,7 +24,7 @@ public:
     void setLin(int i);
     void setCol(int i);
 
-    vector<Coord> voisins(Coord c) const;
+    vector<Coord> voisins() const;
 
 };
 

@@ -32,17 +32,15 @@ void Coord::setCol(int i) {
     col = i;
 }
 
-vector<Coord> Coord::voisins(Coord c) const {
+vector<Coord> Coord::voisins() const {
     vector<Coord> helper;
-    int lin = c.getLin();
-    int col = c.getCol();
 
     for(int l = lin -1 ; l <= lin +1 ; l++) {
         for(int c = col - 1 ; c <= col +1; c++) {
             if(c > 19 or l > 19 or c <0 or l <0 or  (c == col and l == lin)) {
                 continue;
             }else {
-                helper.push_back(*(new Coord{lin, col}));
+                helper.push_back(*(new Coord{l, c}));
             }
         }
     }

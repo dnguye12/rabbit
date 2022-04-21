@@ -38,6 +38,11 @@ int main()
 
     Jeu j{};
 
+    vector<Coord> hekoer =  j.voisinsVides( *(new Coord {2,3}));
+    for(int i = 0; i < hekoer.size(); i++) {
+        cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
+    }
+
     if(j.verifieGrille())
     {
         j.affiche();

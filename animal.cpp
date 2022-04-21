@@ -49,7 +49,8 @@ string Animal::toString() const
     }
 }
 
-bool operator==(Animal a1, Animal a2) {
+bool operator==(Animal a1, Animal a2)
+{
     return a1.getId() == a2.getId() and a1.getCoord() == a2.getCoord() and a1.getEspece() == a2.getEspece();
 }
 
@@ -154,7 +155,8 @@ int Grille::getCase(Coord c) const
     return board[c.getLin()][c.getCol()].getId();
 }
 
-Animal Grille::getAnimal(Coord c) const {
+Animal Grille::getAnimal(Coord c) const
+{
     return board[c.getLin()][c.getCol()];
 }
 
@@ -177,7 +179,8 @@ void Grille::setCase(int id, Espece e, Coord c)
     board[c.getLin()][c.getCol()] = *(new Animal{id, e, c});
 }
 
-string Grille::printCase(Coord c) const {
+string Grille::printCase(Coord c) const
+{
     return board[c.getLin()][c.getCol()].toString();
 }
 
@@ -220,7 +223,7 @@ Jeu::Jeu()
     }
 }
 
-void Jeu::affiche()
+void Jeu::affiche() const
 {
     for(int i = 0; i < 81; i++)
     {
@@ -250,18 +253,62 @@ void Jeu::affiche()
     }
 }
 
-bool Jeu::verifieGrille() {
-    for(int l = 0; l< 20; l++) {
-        for(int c = 0; c < 20; c++) {
+bool Jeu::verifieGrille() const
+{
+    for(int l = 0; l< 20; l++)
+    {
+        for(int c = 0; c < 20; c++)
+        {
             Coord co{l,c};
-            if(not jGri.caseVide(co)) {
-            Animal a = jGri.getAnimal(co);
-            int id = a.getId();
-            if(!(a == jPop.get(id))) {
-                return false;
-            }
+            if(not jGri.caseVide(co))
+            {
+                Animal a = jGri.getAnimal(co);
+                int id = a.getId();
+                if(!(a == jPop.get(id)))
+                {
+                    return false;
+                }
             }
         }
     }
     return true;
+}
+
+vector<Coord> Jeu::voisinsVides(Coord c) const
+{
+    vector<Coord> helper = c.voisins();
+    for(int i = 0; i < helper.size(); i++)
+    {
+        if(not jGri.caseVide(helper[i]))
+        {
+            helper.erase(helper.begin() + i);
+        }
+    }
+    return helper;
+}
+
+vector<Coord> Jeu::voisinsLapins(Coord c) const
+{
+    vector<Coord> helper = c.voisins();
+    for(int i = 0; i < helper.size(); i++)
+    {
+        if(not (jGri.getAnimal(helper[i]).getEspece()==Espece::lapin))
+        {
+            helper.erase(helper.begin() + i);
+        }
+    }
+    return helper;
+}
+
+vector<Coord> Jeu::voisinsRenards(Coord c) const
+{
+    vector<Coord> helper = c.voisins();
+    for(int i = 0; i < helper.size(); i++)
+    {
+        if(not (jGri.getAnimal(helper[i]).getEspece()==Espece::renard))
+        {
+            helper.erase(helper.begin() + i);
+        }
+    }
+    return helper;
 }
