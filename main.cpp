@@ -1,9 +1,10 @@
 #include <iostream>
-#include <random>
+#include <chrono>
+#include <thread>
 
 using namespace std;
 
-#include "animal.hpp"
+#include "jeu.hpp"
 
 int main()
 {
@@ -42,10 +43,13 @@ int main()
     for(int i = 0; i < hekoer.size(); i++) {
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
-
-    if(j.verifieGrille())
+    while(j.verifieGrille())
     {
+        system("clear");
         j.affiche();
+        chrono::seconds dura(1);
+        this_thread::sleep_for( dura );
+        //j.deplace();
     }
 
     return 0;

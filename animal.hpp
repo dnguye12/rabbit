@@ -3,7 +3,8 @@
 
 #include <string>
 
-#include "util.hpp"
+#include "coord.hpp"
+#include "ensemble.hpp"
 
 using namespace std;
 
@@ -32,72 +33,5 @@ public:
 };
 
 bool operator==(Animal a1, Animal a2);
-
-
-
-struct Population {
-public:
-    //constructor
-    Population();
-
-    //methods
-    Animal get(int id) const;
-
-    Ensemble getIds(Espece type) const;
-
-    int reserve();
-
-    int set(Espece type, Coord c);
-
-    void supprime(int id);
-private:
-    Animal pop[400];
-    vector<int> freeId;
-};
-
-
-
-struct Grille {
-public:
-    Grille();
-
-    bool caseVide(Coord c) const;
-
-    int getCase(Coord c) const;
-
-    Animal getAnimal(Coord c) const;
-
-    void videCase(Coord c);
-
-    void setCase(int id, Espece e, Coord c);
-
-    string printCase(Coord c) const;
-
-private:
-    vector<vector<Animal>> board;
-};
-
-struct Jeu {
-public:
-    Jeu();
-
-    void ajouteAnimal(Espece type, Coord coord);
-
-    void affiche() const;
-
-    bool verifieGrille() const;
-
-    vector<Coord> voisinsVides(Coord c) const;
-
-    vector<Coord> voisinsLapins(Coord c) const;
-
-    vector<Coord> voisinsRenards(Coord c) const;
-
-    void deplace();
-
-private:
-    Population jPop;
-    Grille jGri;
-};
 
 #endif // ANIMAL_HPP_INCLUDED
