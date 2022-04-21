@@ -31,6 +31,8 @@ public:
     string toString() const;
 };
 
+bool operator==(Animal a1, Animal a2);
+
 
 
 struct Population {
@@ -63,6 +65,8 @@ public:
 
     int getCase(Coord c) const;
 
+    Animal getAnimal(Coord c) const;
+
     void videCase(Coord c);
 
     void setCase(int id, Espece e, Coord c);
@@ -80,6 +84,8 @@ public:
     void ajouteAnimal(Espece type, Coord coord);
 
     void affiche();
+
+    bool verifieGrille();
 
 private:
     Population jPop;

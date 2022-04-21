@@ -38,7 +38,10 @@ int main()
 
     Jeu j{};
 
-    j.affiche();
+    if(j.verifieGrille())
+    {
+        j.affiche();
+    }
 
     return 0;
 }

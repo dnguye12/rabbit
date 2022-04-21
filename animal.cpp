@@ -49,6 +49,10 @@ string Animal::toString() const
     }
 }
 
+bool operator==(Animal a1, Animal a2) {
+    return a1.getId() == a2.getId() and a1.getCoord() == a2.getCoord() and a1.getEspece() == a2.getEspece();
+}
+
 
 
 
@@ -150,6 +154,10 @@ int Grille::getCase(Coord c) const
     return board[c.getLin()][c.getCol()].getId();
 }
 
+Animal Grille::getAnimal(Coord c) const {
+    return board[c.getLin()][c.getCol()];
+}
+
 void Grille::videCase(Coord c)
 {
     if(caseVide(c))
@@ -203,13 +211,11 @@ Jeu::Jeu()
         helper = rand() % 100 + 1;
         if(helper <= 7)
         {
-            int id = jPop.set(Espece::renard, c);
-            jGri.setCase(id, Espece::renard, c);
+            ajouteAnimal(Espece::renard, c);
         }
         else if(helper > 7 and helper <= 27)
         {
-            int id = jPop.set(Espece::lapin, c);
-            jGri.setCase(id, Espece::lapin, c);
+            ajouteAnimal(Espece::lapin, c);
         }
     }
 }
@@ -242,4 +248,20 @@ void Jeu::affiche()
         }
         cout << endl;
     }
+}
+
+bool Jeu::verifieGrille() {
+    for(int l = 0; l< 20; l++) {
+        for(int c = 0; c < 20; c++) {
+            Coord co{l,c};
+            if(not jGri.caseVide(co)) {
+            Animal a = jGri.getAnimal(co);
+            int id = a.getId();
+            if(!(a == jPop.get(id))) {
+                return false;
+            }
+            }
+        }
+    }
+    return true;
 }
