@@ -8,7 +8,10 @@ using namespace std;
 
 int main()
 {
-
+    /*
+    doctest::Context context(argc, argv);
+int test_result = context.run();
+if (context.shouldExit()) return test_result;*/
 
     /*
     Animal a{20, Espece::lapin, *(new Coord{10,11})};
