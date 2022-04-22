@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const int TAILLEGRILLE = 20;
+const int TAILLEGRILLE = 40;
 
 class Coord
 {
@@ -24,6 +24,9 @@ public:
     //methodes
     int getLin() const;
     int getCol() const;
+
+    void setLin(int i);
+    void setCol(int i);
 
     int toInt() const;
 

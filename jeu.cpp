@@ -4,14 +4,14 @@ Jeu::Jeu()
 {
     srand(time(NULL));
     int helper;
-    for(int i = 0; i < 400; i++)
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
     {
         bool found = false;
         Coord c;
         while(not found)
         {
-            c.setLin(rand() % 20);
-            c.setCol(rand() % 20);
+            c.setLin(rand() % TAILLEGRILLE);
+            c.setCol(rand() % TAILLEGRILLE);
             if(jGri.caseVide(c))
             {
                 found = true;
@@ -39,15 +39,15 @@ void Jeu::ajouteAnimal(Espece type, Coord coord)
 
 void Jeu::affiche() const
 {
-    for(int i = 0; i < 81; i++)
+    for(int i = 0; i < TAILLEGRILLE*4+1; i++)
     {
         cout << "-";
     }
     cout << endl;
 
-    for(int l =0; l < 20; l++)
+    for(int l =0; l < TAILLEGRILLE; l++)
     {
-        for(int c = 0; c < 20; c++)
+        for(int c = 0; c < TAILLEGRILLE; c++)
         {
             if(c == 0)
             {
@@ -59,20 +59,20 @@ void Jeu::affiche() const
             }
         }
         cout << endl;
-        for(int i = 0; i < 81; i++)
+        for(int i = 0; i < TAILLEGRILLE*4+1; i++)
         {
             cout << "-";
         }
         cout << endl;
     }
-    //cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
+    cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
 }
 
 bool Jeu::verifieGrille() const
 {
-    for(int l = 0; l< 20; l++)
+    for(int l = 0; l< TAILLEGRILLE; l++)
     {
-        for(int c = 0; c < 20; c++)
+        for(int c = 0; c < TAILLEGRILLE; c++)
         {
             Coord co{l,c};
             if(not jGri.caseVide(co))
@@ -128,21 +128,39 @@ vector<Coord> Jeu::voisinsRenards(Coord c) const
     return helper;
 }
 
-void Jeu::deplace() {
-    for(int l = 0; l < 20; l++) {
-        for(int c = 0; c < 20; c++) {
+void Jeu::deplace()
+{
+    vector<Animal> h1 {TAILLEGRILLE, *(new Animal{})};
+    vector<vector<Animal>> h2 {TAILLEGRILLE, h1};
+
+    for(int l = 0; l < TAILLEGRILLE; l++)
+    {
+        for(int c = 0; c < TAILLEGRILLE; c++)
+        {
+            h2[l][c] = *(new Animal{ -1, Espece::rien, *(new Coord{l,c})  });
+        }
+    }
+    for(int l = 0; l < TAILLEGRILLE; l++)
+    {
+        for(int c = 0; c < TAILLEGRILLE; c++)
+        {
             Coord coord {l,c};
-            vector<Coord> voisins = voisinsVides(coord);
-            if(voisins.size() == 0) {
-                continue;
-            }
-            if(jGri.getAnimal(coord).getEspece() == Espece::lapin) {
-                int choix = rand() % voisins.size();
-                Coord new_coord = voisins[choix];
-                int id = jGri.getAnimal(coord).getId();
-                jPop.changeCoord(id, new_coord);
-                jGri.setCase(id, Espece::lapin, new_coord);
-                jGri.videCase(coord);
+            if(jGri.getAnimal(coord).getEspece() == Espece::lapin)
+            {
+                vector<Coord> voisins = voisinsVides(coord);
+                if(voisins.size() == 0)
+                {
+                    continue;
+                }
+                else if(h2[l][c].getEspece() == Espece::rien)
+                {
+                    int choix = rand() % voisins.size();
+                    Coord new_coord = voisins[choix];
+                    int id = jGri.getAnimal(coord).getId();
+                    jPop.changeCoord(id, new_coord);
+                    jGri.setCase(id, Espece::lapin, new_coord);
+                    jGri.videCase(coord);
+                }
             }
         }
     }

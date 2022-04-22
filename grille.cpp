@@ -2,13 +2,13 @@
 
 Grille::Grille()
 {
-    vector<Animal> h1 {20, *(new Animal)};
-    vector<vector<Animal>> h2 {20, h1};
+    vector<Animal> h1 {TAILLEGRILLE, *(new Animal)};
+    vector<vector<Animal>> h2 {TAILLEGRILLE, h1};
     board = h2;
 
-    for(int l = 0; l < 20; l++)
+    for(int l = 0; l < TAILLEGRILLE; l++)
     {
-        for(int c = 0; c < 20; c++)
+        for(int c = 0; c < TAILLEGRILLE; c++)
         {
             board[l][c] = *(new Animal{ -1, Espece::rien, *(new Coord{l,c})  });
         }
@@ -60,8 +60,8 @@ string Grille::printCase(Coord c) const
 
 int Grille::lapinPop() const {
     int count = 0;
-    for(int l = 0; l  < 20; l++) {
-        for(int  c = 0; c < 20; c++) {
+    for(int l = 0; l  < board[0].size(); l++) {
+        for(int  c = 0; c < board[0].size(); c++) {
             if(board[l][c].getEspece() == Espece::lapin) {
                 count++;
             }

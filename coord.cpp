@@ -33,6 +33,13 @@ int Coord::getCol() const
     return col;
 }
 
+void Coord::setLin(int i) {
+    lin = i;
+}
+
+void Coord::setCol(int i) {
+    col = i;
+}
 
 int Coord::toInt() const {
     return lin * TAILLEGRILLE + col;
@@ -54,7 +61,7 @@ vector<Coord> Coord::voisins() const {
 }
 
 ostream &operator<<(ostream &out, Coord c) {
-    out << c.getLin() << ":" << c.getCol();
+    out << "("<<c.getLin() << "," << c.getCol()<< ")"<< " ";
     return out;
 }
 
@@ -72,8 +79,10 @@ TEST_CASE("Coord test")
     Coord c2{5,5};
     Coord c3{5,5};
     Coord c4{19,19};
+    Coord c5{390};
     CHECK(c1 != c2);
     CHECK(c3 == c2);
     CHECK(c4.toInt() == 399);
+    CHECK(c5 == *(new Coord{19,10}) );
 }
 

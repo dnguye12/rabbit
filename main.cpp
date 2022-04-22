@@ -1,3 +1,11 @@
+#include <chrono>
+#include <thread>
+#include <vector>
+#include <iostream>
+using namespace std;
+
+#include "jeu.hpp"
+
 int main()
 {
 
@@ -23,21 +31,21 @@ int main()
 
     cout << p.getIds(Espece::lapin);*/
 
-    //Jeu j{};
+    Jeu j{};
     /*
     vector<Coord> hekoer =  j.voisinsVides( *(new Coord {2,3}));
     for(int i = 0; i < hekoer.size(); i++) {
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
-    /*
+
     while(j.verifieGrille())
     {
         system("clear");
         j.affiche();
         chrono::seconds dura(1);
         this_thread::sleep_for( dura );
-        //j.deplace();
+        j.deplace();
     }
-    */
+
     return 0;
 }

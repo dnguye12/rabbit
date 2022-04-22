@@ -5,7 +5,7 @@
 Population::Population()
 {
     //pop = Animal[400];
-    for(int i = 0; i < 800; i++)
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
     {
         freeId.push_back(i);
     }
@@ -13,7 +13,7 @@ Population::Population()
 
 Animal Population::get(int id) const
 {
-    for(int i = 0; i < 800; i++)
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
     {
         if(pop[i].getId() == id)
         {
