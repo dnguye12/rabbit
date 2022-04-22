@@ -73,4 +73,3 @@ bool operator!=(Coord c1, Coord c2) {
 }
 
 
-

@@ -22,7 +22,7 @@ Jeu::Jeu()
         {
             ajouteAnimal(Espece::renard, c);
         }
-        else if(helper > 7 and helper <= 10)
+        else if(helper > 7 and helper <= 20)
         {
             ajouteAnimal(Espece::lapin, c);
         }
@@ -143,11 +143,12 @@ void Jeu::deplace()
             vector<Coord> videc = voisinsVides(c);
             int choix = rand() % videc.size();
             Coord newc = videc[choix];
-            jPop.changeCoord(id, c);
+            jPop.changeCoord(id, newc);
         }
 
     }
     jGri = *(new Grille{});
+
     for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++) {
         Animal a = jPop.getIndex(i);
         if(a.getEspece() != Espece::rien) {
