@@ -14,7 +14,9 @@ public:
     //methods
     Animal get(int id) const;
 
-    Ensemble getIds(Espece type) const;
+    Animal getIndex(int i) const;
+
+    vector<int> getIds(Espece type) const;
 
     int reserve();
 

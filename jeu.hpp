@@ -29,4 +29,6 @@ private:
     Grille jGri;
 };
 
+bool vectorContient(vector<int> vec, int x);
+
 #endif // ANIMAL_HPP_INCLUDED

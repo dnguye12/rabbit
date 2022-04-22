@@ -23,15 +23,19 @@ Animal Population::get(int id) const
     return *(new Animal{});
 }
 
-Ensemble Population::getIds(Espece type) const
+Animal Population::getIndex(int i) const {
+    return pop[i];
+}
+
+vector<int> Population::getIds(Espece type) const
 {
-    Ensemble helper;
+    vector<int> helper;
     int pop_size = sizeof(pop) / sizeof(pop[0]);
     for(int i = 0; i < pop_size; i++)
     {
         if(pop[i].getEspece() == type)
         {
-            helper.ajoute(pop[i].getId());
+            helper.push_back(pop[i].getId());
         }
     }
     return helper;

@@ -41,14 +41,19 @@ if (context.shouldExit()) return test_result;*/
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
 
-    while(j.verifieGrille())
-    {
+   // while(j.verifieGrille())
+    //{
         system("clear");
         j.affiche();
-        chrono::seconds dura(1);
-        this_thread::sleep_for( dura );
-        j.deplace();
-    }
+     //   chrono::seconds dura(1);
+     //   this_thread::sleep_for( dura );
+      //  j.deplace();
+      Coord c1{5,6};
+      vector<Coord> helper = j.voisinsVides(c1);
+      for(int i = 0; i < helper.size(); i++) {
+        cout << helper[i];
+      }
+    //}
 
     return 0;
 }
