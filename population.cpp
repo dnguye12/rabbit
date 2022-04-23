@@ -1,6 +1,7 @@
 #include "population.hpp"
 
 #include <algorithm>
+#include <stdlib.h>
 
 Population::Population()
 {

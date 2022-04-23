@@ -18,13 +18,15 @@ public:
 
     void setCase(int id, Espece e, Coord c);
 
+    void setCase(Animal a, Coord c);
+
     string printCase(Coord c) const;
 
     int lapinPop() const;
 
     int renardPop() const;
 
-private:
+//private:
     vector<vector<Animal>> board;
 };
 

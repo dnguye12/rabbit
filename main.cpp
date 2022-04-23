@@ -41,6 +41,12 @@ int main()
         chrono::seconds dura(1);
         //this_thread::sleep_for( dura );
         j.deplace();
+
+        for(int i = 0; i < 100; i++) {
+            if(j.jPop.pop[i].getEspece() == Espece::renard) {
+                cout << j.jPop.pop[i].getFoodInit() << endl;
+            }
+        }
     }
 
     return 0;

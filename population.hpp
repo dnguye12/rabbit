@@ -25,7 +25,7 @@ public:
     void supprime(int id);
 
     void changeCoord(int id, Coord c);
-private:
+//private:
     Animal pop[TAILLEGRILLE * TAILLEGRILLE * 2];
     vector<int> freeId;
 };

@@ -23,7 +23,7 @@ Jeu::Jeu()
         {
             ajouteAnimal(Espece::renard, c);
         }
-        else if(helper > 7 and helper <= 27)
+        else if(helper > 7 and helper <= 6)
         {
             ajouteAnimal(Espece::lapin, c);
         }
@@ -143,7 +143,8 @@ void Jeu::deplaceLapin()
             Coord c = a.getCoord();
             int id = a.getId();
             vector<Coord> videc = voisinsVides(c);
-            if(videc.size() == 0) {
+            if(videc.size() == 0)
+            {
                 continue;
             }
             if(videc.size() >= a.getMinFreeBirthLapin())
@@ -199,8 +200,57 @@ void Jeu::deplaceRenard()
             int id = a.getId();
             vector<Coord> videl = voisinsLapins(c);
             vector<Coord> videc = voisinsVides(c);
+            if(videc.size() == 0)
+            {
+                continue;
+            }
+            int choix;
+            if(videl.size() > 0)
+            {
+                choix = rand() % videl.size();
+                int lid = jGri.getCase(videl[choix]);
+                jPop.supprime(lid);
+                jGri.videCase(videl[choix]);
+                jPop.changeCoord(id, videl[choix]);
+                jGri.setCase(a.getId(), a.getEspece(), videl[choix]);
+                jGri.videCase(c);
+
+            }
+            else
+            {
+                choix = rand() % videc.size();
+                Coord newc = videc[choix];
+                jPop.changeCoord(id, newc);
+                jGri.setCase(a.getId(), a.getEspece(), newc);
+                jGri.videCase(c);
+                jPop.getIndex(i).setFoodInit(jPop.getIndex(i).getFoodInit() - 1);
+                if(jPop.getIndex(i).getFoodInit() <= 0)
+                {
+                    jPop.supprime(a.getId());
+                    jGri.videCase(newc);
+                }
+
+            }
+
+        }
+
+    }
+}
+
+/*
+void Jeu::deplaceRenard()
+{
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
+        Animal a = jPop.getIndex(i);
+        if(a.getEspece() == Espece::renard)
+        {
+            Coord c = a.getCoord();
+            int id = a.getId();
+            vector<Coord> videl = voisinsLapins(c);
+            vector<Coord> videc = voisinsVides(c);
             if(videc.size() == 0) {
-                return;
+                continue;
             }
             int choix;
             if(videl.size() > 0)
@@ -226,6 +276,7 @@ void Jeu::deplaceRenard()
 
     }
 }
+*/
 
 void Jeu::deplace()
 {

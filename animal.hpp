@@ -21,6 +21,11 @@ private:
     int ProbReproLapin = 30;
 
     //stats renard
+    int FoodInit = 5;
+    int FoodLapin = 5;
+    int FoodReprod = 8;
+    int MaxFood = 10;
+    int ProbBirthRenard = 5;
 public:
     //Constructors
     Animal();
@@ -40,6 +45,20 @@ public:
     int getMinFreeBirthLapin() const;
 
     int getProbReproLapin() const;
+
+
+
+    int getFoodInit() const;
+
+    void setFoodInit(int i);
+
+    int getFoodLapin() const;
+
+    int getFoodReprod() const;
+
+    int getMaxFood() const;
+
+    int getProbBirthRenard() const;
 };
 
 bool operator==(Animal a1, Animal a2);

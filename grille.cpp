@@ -53,6 +53,14 @@ void Grille::setCase(int id, Espece e, Coord c)
     board[c.getLin()][c.getCol()] = *(new Animal{id, e, c});
 }
 
+void Grille::setCase(Animal a, Coord c) {
+    if(not caseVide(c))
+    {
+        throw invalid_argument("trying setcase() in case not vide");
+    }
+    board[c.getLin()][c.getCol()] = a;
+}
+
 string Grille::printCase(Coord c) const
 {
     return board[c.getLin()][c.getCol()].toString();

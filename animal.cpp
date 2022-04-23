@@ -49,12 +49,47 @@ string Animal::toString() const
     }
 }
 
-int Animal::getMinFreeBirthLapin() const {
+int Animal::getMinFreeBirthLapin() const
+{
     return MinFreeBirthLapin;
 }
 
-int Animal::getProbReproLapin() const {
+int Animal::getProbReproLapin() const
+{
     return ProbReproLapin;
+}
+
+
+
+
+
+int Animal::getFoodInit() const
+{
+    return FoodInit;
+}
+
+void Animal::setFoodInit(int i) {
+    FoodInit = i;
+}
+
+int Animal::getFoodLapin() const
+{
+    return FoodLapin;
+}
+
+int Animal::getFoodReprod() const
+{
+    return FoodReprod;
+}
+
+int Animal::getMaxFood() const
+{
+    return MaxFood;
+}
+
+int Animal::getProbBirthRenard() const
+{
+    return ProbBirthRenard;
 }
 
 bool operator==(Animal a1, Animal a2)
