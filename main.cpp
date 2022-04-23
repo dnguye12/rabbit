@@ -40,11 +40,6 @@ int main()
         j.affiche();
         chrono::seconds dura(1);
         //this_thread::sleep_for( dura );
-
-        cout << endl;
-        for(int i = 0; i < j.jPop.freeId.size() ;i++) {
-            cout << j.jPop.freeId[i]<< " ";
-        }
         j.deplace();
     }
 

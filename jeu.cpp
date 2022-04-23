@@ -23,7 +23,7 @@ Jeu::Jeu()
         {
             ajouteAnimal(Espece::renard, c);
         }
-        else if(helper > 7 and helper <= 20)
+        else if(helper > 7 and helper <= 27)
         {
             ajouteAnimal(Espece::lapin, c);
         }
@@ -97,7 +97,7 @@ vector<Coord> Jeu::voisinsVides(Coord c) const
     vector<Coord> otto;
     for(int i = 0; i < helper.size(); i++)
     {
-        if(jGri.caseVide(helper[i]))
+        if(jGri.getAnimal(helper[i]).getEspece()==Espece::rien)
         {
             otto.push_back(helper[i]);
         }
@@ -111,7 +111,7 @@ vector<Coord> Jeu::voisinsLapins(Coord c) const
     vector<Coord> otto;
     for(int i = 0; i < helper.size(); i++)
     {
-        if((jGri.getAnimal(helper[i]).getEspece()==Espece::lapin))
+        if(jGri.getAnimal(helper[i]).getEspece()==Espece::lapin)
         {
             otto.push_back(helper[i]);
         }
@@ -144,7 +144,7 @@ void Jeu::deplaceLapin()
             int id = a.getId();
             vector<Coord> videc = voisinsVides(c);
             if(videc.size() == 0) {
-                return;
+                continue;
             }
             if(videc.size() >= a.getMinFreeBirthLapin())
             {

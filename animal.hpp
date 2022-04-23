@@ -15,8 +15,12 @@ private:
     int aId;
     Espece aType;
     Coord aCoord;
+
+    //stats lapin
     int MinFreeBirthLapin = 4;
     int ProbReproLapin = 30;
+
+    //stats renard
 public:
     //Constructors
     Animal();
