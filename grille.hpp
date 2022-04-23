@@ -22,6 +22,8 @@ public:
 
     int lapinPop() const;
 
+    int renardPop() const;
+
 private:
     vector<vector<Animal>> board;
 };

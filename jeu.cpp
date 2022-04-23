@@ -67,6 +67,7 @@ void Jeu::affiche() const
         cout << endl;
     }
     cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
+    cout << "Renard Population: " << jPop.getIds(Espece::renard).size() << endl << jGri.renardPop() << endl;
 }
 
 bool Jeu::verifieGrille() const
@@ -142,11 +143,46 @@ void Jeu::deplaceLapin()
             Coord c = a.getCoord();
             int id = a.getId();
             vector<Coord> videc = voisinsVides(c);
-            int choix = rand() % videc.size();
-            Coord newc = videc[choix];
-            jPop.changeCoord(id, newc);
-            jGri.setCase(a.getId(), a.getEspece(), newc);
-            jGri.videCase(c);
+            if(videc.size() == 0) {
+                return;
+            }
+            if(videc.size() >= a.getMinFreeBirthLapin())
+            {
+                int birth = rand() % 100 +1;
+                if(birth <= a.getProbReproLapin())
+                {
+
+                    int choix = rand() % videc.size();
+                    Coord newc = videc[choix];
+                    jPop.changeCoord(id, newc);
+                    jGri.setCase(a.getId(), a.getEspece(), newc);
+                    jGri.videCase(c);
+                    int nid = jPop.set(Espece::lapin, c);
+                    if(nid != -1)
+                    {
+                        jGri.setCase(nid, Espece::lapin, c);
+                    }
+
+
+                }
+                else
+                {
+                    int choix = rand() % videc.size();
+                    Coord newc = videc[choix];
+                    jPop.changeCoord(id, newc);
+                    jGri.setCase(a.getId(), a.getEspece(), newc);
+                    jGri.videCase(c);
+                }
+
+            }
+            else
+            {
+                int choix = rand() % videc.size();
+                Coord newc = videc[choix];
+                jPop.changeCoord(id, newc);
+                jGri.setCase(a.getId(), a.getEspece(), newc);
+                jGri.videCase(c);
+            }
         }
 
     }
@@ -161,12 +197,31 @@ void Jeu::deplaceRenard()
         {
             Coord c = a.getCoord();
             int id = a.getId();
+            vector<Coord> videl = voisinsLapins(c);
             vector<Coord> videc = voisinsVides(c);
-            int choix = rand() % videc.size();
-            Coord newc = videc[choix];
-            jPop.changeCoord(id, newc);
-            jGri.setCase(a.getId(), a.getEspece(), newc);
-            jGri.videCase(c);
+            if(videc.size() == 0) {
+                return;
+            }
+            int choix;
+            if(videl.size() > 0)
+            {
+                choix = rand() % videl.size();
+                int lid = jGri.getCase(videl[choix]);
+                jPop.supprime(lid);
+                jGri.videCase(videl[choix]);
+                jPop.changeCoord(id, videl[choix]);
+                jGri.setCase(a.getId(), a.getEspece(), videl[choix]);
+                jGri.videCase(c);
+            }
+            else
+            {
+                choix = rand() % videc.size();
+                Coord newc = videc[choix];
+                jPop.changeCoord(id, newc);
+                jGri.setCase(a.getId(), a.getEspece(), newc);
+                jGri.videCase(c);
+            }
+
         }
 
     }

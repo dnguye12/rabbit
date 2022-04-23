@@ -69,3 +69,15 @@ int Grille::lapinPop() const {
     }
     return count;
 }
+
+int Grille::renardPop() const {
+    int count = 0;
+    for(int l = 0; l  < board[0].size(); l++) {
+        for(int  c = 0; c < board[0].size(); c++) {
+            if(board[l][c].getEspece() == Espece::renard) {
+                count++;
+            }
+        }
+    }
+    return count;
+}

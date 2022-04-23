@@ -15,6 +15,8 @@ private:
     int aId;
     Espece aType;
     Coord aCoord;
+    int MinFreeBirthLapin = 4;
+    int ProbReproLapin = 30;
 public:
     //Constructors
     Animal();
@@ -30,6 +32,10 @@ public:
     Espece getEspece() const;
 
     string toString() const;
+
+    int getMinFreeBirthLapin() const;
+
+    int getProbReproLapin() const;
 };
 
 bool operator==(Animal a1, Animal a2);

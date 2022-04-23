@@ -49,6 +49,14 @@ string Animal::toString() const
     }
 }
 
+int Animal::getMinFreeBirthLapin() const {
+    return MinFreeBirthLapin;
+}
+
+int Animal::getProbReproLapin() const {
+    return ProbReproLapin;
+}
+
 bool operator==(Animal a1, Animal a2)
 {
     return a1.getId() == a2.getId() and a1.getCoord() == a2.getCoord() and a1.getEspece() == a2.getEspece();
