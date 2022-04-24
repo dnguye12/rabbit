@@ -5,6 +5,7 @@
 using namespace std;
 
 #include "coord.hpp"
+#include "animal.hpp"
 #include "jeu.hpp"
 
 int main()
@@ -34,7 +35,7 @@ int main()
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
 
-    while(j.verifieGrille())
+   while(j.verifieGrille())
     {
         system("cls");
         j.affiche();
@@ -42,7 +43,7 @@ int main()
         //this_thread::sleep_for( dura );
         j.deplace();
 
-        for(int i = 0; i < 100; i++) {
+        for(int i = 0; i < 10; i++) {
             if(j.jPop.pop[i].getEspece() == Espece::renard) {
                 cout << j.jPop.pop[i].getFoodInit() << endl;
             }

@@ -77,3 +77,12 @@ void Population::supprime(int id)
 void Population::changeCoord(int id, Coord c) {
     pop[id].setCoord(c);
 }
+
+void Population::setFoodInit(int id, int i) {
+
+    if(pop[id].getFoodInit() + i > pop[id].getMaxFood()) {
+        pop[id].setFoodInit(pop[id].getMaxFood());
+    }else {
+    pop[id].setFoodInit(i);
+    }
+}

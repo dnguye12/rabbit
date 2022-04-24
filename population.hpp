@@ -25,8 +25,10 @@ public:
     void supprime(int id);
 
     void changeCoord(int id, Coord c);
+
+    void setFoodInit(int id, int i);
 //private:
-    Animal pop[TAILLEGRILLE * TAILLEGRILLE * 2];
+    Animal pop[TAILLEGRILLE * TAILLEGRILLE];
     vector<int> freeId;
 };
 

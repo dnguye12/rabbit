@@ -23,7 +23,7 @@ Jeu::Jeu()
         {
             ajouteAnimal(Espece::renard, c);
         }
-        else if(helper > 7 and helper <= 6)
+        else if(helper > 7 and helper <= 27)
         {
             ajouteAnimal(Espece::lapin, c);
         }
@@ -212,22 +212,49 @@ void Jeu::deplaceRenard()
                 jPop.supprime(lid);
                 jGri.videCase(videl[choix]);
                 jPop.changeCoord(id, videl[choix]);
-                jGri.setCase(a.getId(), a.getEspece(), videl[choix]);
+                jGri.setCase(a.getId(), videl[choix], jPop);
                 jGri.videCase(c);
+                jPop.setFoodInit(a.getId(), jPop.get(id).getFoodInit() + a.getFoodLapin());
 
+                if(jPop.get(id).getFoodInit() >= a.getFoodReprod())
+                {
+                    int birth = rand() % 100 + 1;
+                    if(birth <= a.getProbBirthRenard())
+                    {
+                        int nid = jPop.set(Espece::renard, c);
+                        if(nid != -1)
+                        {
+                            jGri.setCase(nid, Espece::renard, c);
+                        }
+
+                    }
+                }
             }
             else
             {
                 choix = rand() % videc.size();
                 Coord newc = videc[choix];
                 jPop.changeCoord(id, newc);
-                jGri.setCase(a.getId(), a.getEspece(), newc);
+                jGri.setCase(a.getId(), newc, jPop);
                 jGri.videCase(c);
-                jPop.getIndex(i).setFoodInit(jPop.getIndex(i).getFoodInit() - 1);
-                if(jPop.getIndex(i).getFoodInit() <= 0)
+                jPop.setFoodInit(a.getId(), jPop.get(id).getFoodInit() - 1);
+                if(jPop.get(i).getFoodInit() <= 0)
                 {
                     jPop.supprime(a.getId());
                     jGri.videCase(newc);
+                }
+                if(jPop.get(i).getFoodInit() >= a.getFoodReprod())
+                {
+                    int birth = rand() % 100 + 1;
+                    if(birth <= a.getProbBirthRenard())
+                    {
+                        int nid = jPop.set(Espece::renard, c);
+                        if(nid != -1)
+                        {
+                            jGri.setCase(nid, Espece::renard, c);
+                        }
+
+                    }
                 }
 
             }

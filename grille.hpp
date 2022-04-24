@@ -3,6 +3,7 @@
 
 #include "coord.hpp"
 #include "animal.hpp"
+#include "population.hpp"
 
 class Grille {
 public:
@@ -18,7 +19,7 @@ public:
 
     void setCase(int id, Espece e, Coord c);
 
-    void setCase(Animal a, Coord c);
+    void setCase(int id, Coord c, Population p);
 
     string printCase(Coord c) const;
 
