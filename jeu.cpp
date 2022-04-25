@@ -212,8 +212,14 @@ void Jeu::deplaceRenard()
             vector<Coord> videl = voisinsLapins(c);
             vector<Coord> videc = voisinsVides(c);
 
-            if(videc.size() == 0)
+            if(videc.size() == 0 and videl.size() == 0)
             {
+                jPop.setFoodInit(jPop.get(id).getId(), jPop.get(id).getFoodInit() - 1);
+                if(jPop.get(i).getFoodInit() <= 0)
+                {
+                    jPop.supprime(a.getId());
+                    jGri.videCase(c);
+                }
                 continue;
             }
             int choix;
@@ -279,6 +285,7 @@ void Jeu::deplace()
 {
     deplaceLapin();
     deplaceRenard();
+
     for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++) {
         Animal a = jPop.getIndex(i);
         int id = a.getId();

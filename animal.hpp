@@ -14,13 +14,13 @@ class Animal {
 private:
     int aId;
     int age = 0;
-    int maxAge = 30;
+    int maxAge = 25;
     Espece aType;
     Coord aCoord;
 
     //stats lapin
     int MinFreeBirthLapin = 4;
-    int ProbReproLapin = 50;
+    int ProbReproLapin = 60;
 
     //stats renard
     int FoodInit = 5;

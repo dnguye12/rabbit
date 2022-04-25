@@ -36,7 +36,7 @@ int main()
     }*/
    while(j.verifieGrille())
     {
-        system("clear");
+        system("cls");
         j.affiche();
         chrono::seconds dura(1);
         //this_thread::sleep_for( dura );
