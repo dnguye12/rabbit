@@ -4,20 +4,14 @@
 #include <iostream>
 using namespace std;
 
+#include "coord.hpp"
+#include "animal.hpp"
 #include "jeu.hpp"
 
 int main()
 {
-    /*
-    doctest::Context context(argc, argv);
-int test_result = context.run();
-if (context.shouldExit()) return test_result;*/
 
-    /*
-    Animal a{20, Espece::lapin, *(new Coord{10,11})};
-    cout << a.getId() << endl;
-    cout << a.getCoord().getCol() << " " << a.getCoord().getLin() << endl;
-    cout << a.toString() << endl;*/
+
 
     /*
     Population p {};
@@ -41,18 +35,13 @@ if (context.shouldExit()) return test_result;*/
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
 
-    while(j.verifieGrille())
+   while(j.verifieGrille())
     {
         system("clear");
         j.affiche();
         chrono::seconds dura(1);
-        this_thread::sleep_for( dura );
+        //this_thread::sleep_for( dura );
         j.deplace();
-      /*Coord c1{5,6};
-      vector<Coord> helper = j.voisinsVides(c1);
-      for(int i = 0; i < helper.size(); i++) {
-        cout << helper[i];
-      }*/
     }
 
     return 0;

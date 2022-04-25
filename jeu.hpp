@@ -22,9 +22,13 @@ public:
 
     vector<Coord> voisinsRenards(Coord c) const;
 
+    void deplaceLapin();
+
+    void deplaceRenard();
+
     void deplace();
 
-private:
+//private:
     Population jPop;
     Grille jGri;
 };

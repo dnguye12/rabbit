@@ -1,6 +1,7 @@
 #include "population.hpp"
 
 #include <algorithm>
+#include <stdlib.h>
 
 Population::Population()
 {
@@ -75,4 +76,13 @@ void Population::supprime(int id)
 
 void Population::changeCoord(int id, Coord c) {
     pop[id].setCoord(c);
+}
+
+void Population::setFoodInit(int id, int i) {
+
+    if(i > pop[id].getMaxFood()) {
+        pop[id].setFoodInit(pop[id].getMaxFood());
+    }else {
+    pop[id].setFoodInit(i);
+    }
 }
