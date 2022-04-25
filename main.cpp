@@ -34,7 +34,6 @@ int main()
     for(int i = 0; i < hekoer.size(); i++) {
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
-
    while(j.verifieGrille())
     {
         system("clear");

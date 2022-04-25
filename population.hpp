@@ -27,6 +27,8 @@ public:
     void changeCoord(int id, Coord c);
 
     void setFoodInit(int id, int i);
+
+    void aged(int id);
 //private:
     Animal pop[TAILLEGRILLE * TAILLEGRILLE];
     vector<int> freeId;

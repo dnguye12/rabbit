@@ -40,6 +40,7 @@ void Jeu::ajouteAnimal(Espece type, Coord coord)
 
 void Jeu::affiche() const
 {
+
     for(int i = 0; i < TAILLEGRILLE*4+1; i++)
     {
         cout << "-";
@@ -69,11 +70,13 @@ void Jeu::affiche() const
     cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
     cout << "Renard Population: " << jPop.getIds(Espece::renard).size() << endl << jGri.renardPop() << endl;
 /*
-    for(int i = 0; i < 400; i++) {
-            if(jPop.pop[i].getEspece() == Espece::renard) {
-                cout << jPop.pop[i].getFoodInit() << endl;
-            }
-        }*/
+    for(int i = 0; i < 100; i++)
+    {
+        if(jPop.pop[i].getEspece() == Espece::renard)
+        {
+            cout << i <<". " << jPop.pop[i].getAge() << endl;
+        }
+    }*/
 }
 
 bool Jeu::verifieGrille() const
@@ -179,6 +182,7 @@ void Jeu::deplaceLapin()
                     jPop.changeCoord(id, newc);
                     jGri.setCase(a.getId(), a.getEspece(), newc);
                     jGri.videCase(c);
+
                 }
 
             }
@@ -189,6 +193,7 @@ void Jeu::deplaceLapin()
                 jPop.changeCoord(id, newc);
                 jGri.setCase(a.getId(), a.getEspece(), newc);
                 jGri.videCase(c);
+
             }
         }
 
@@ -206,6 +211,7 @@ void Jeu::deplaceRenard()
             int id = a.getId();
             vector<Coord> videl = voisinsLapins(c);
             vector<Coord> videc = voisinsVides(c);
+
             if(videc.size() == 0)
             {
                 continue;
@@ -273,6 +279,20 @@ void Jeu::deplace()
 {
     deplaceLapin();
     deplaceRenard();
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++) {
+        Animal a = jPop.getIndex(i);
+        int id = a.getId();
+        Coord c = a.getCoord();
+        if(a.getEspece() != Espece::rien) {
+            jPop.aged(id);
+            if(jPop.get(id).getAge() > a.getMaxAge())
+            {
+                jPop.supprime(id);
+                jGri.videCase(c);
+                continue;
+            }
+        }
+    }
 }
 
 bool vectorContient(vector<int> vec, int x)

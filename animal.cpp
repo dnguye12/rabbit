@@ -68,7 +68,8 @@ int Animal::getFoodInit() const
     return FoodInit;
 }
 
-void Animal::setFoodInit(int i) {
+void Animal::setFoodInit(int i)
+{
     FoodInit = i;
 }
 
@@ -95,5 +96,20 @@ int Animal::getProbBirthRenard() const
 bool operator==(Animal a1, Animal a2)
 {
     return a1.getId() == a2.getId() and a1.getCoord() == a2.getCoord() and a1.getEspece() == a2.getEspece();
+}
+
+
+
+int Animal::getAge() const
+{
+    return age;
+}
+int Animal::getMaxAge() const
+{
+    return maxAge;
+}
+int Animal::aged()
+{
+    age = age + 1;
 }
 

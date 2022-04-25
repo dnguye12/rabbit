@@ -69,20 +69,52 @@ int Population::set(Espece type, Coord c)
 
 void Population::supprime(int id)
 {
-    pop[id] = {};
-    freeId.push_back(id);
-    sort(freeId.begin(), freeId.end());
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
+        if(pop[i].getId() == id)
+        {
+            pop[i] = {};
+            freeId.push_back(id);
+            sort(freeId.begin(), freeId.end());
+        }
+    }
+
 }
 
 void Population::changeCoord(int id, Coord c) {
-    pop[id].setCoord(c);
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
+        if(pop[i].getId() == id)
+        {
+            pop[i].setCoord(c);
+        }
+    }
 }
 
-void Population::setFoodInit(int id, int i) {
+void Population::setFoodInit(int id, int f) {
 
-    if(i > pop[id].getMaxFood()) {
-        pop[id].setFoodInit(pop[id].getMaxFood());
-    }else {
-    pop[id].setFoodInit(i);
+    int y;
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
+        if(pop[i].getId() == id)
+        {
+            y = i;
+        }
     }
+    if(f > pop[y].getMaxFood()) {
+        pop[y].setFoodInit(pop[y].getMaxFood());
+    }else {
+    pop[y].setFoodInit(f);
+    }
+}
+
+void Population::aged(int id) {
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
+        if(pop[i].getId() == id)
+        {
+            pop[i].aged();
+        }
+    }
+
 }
