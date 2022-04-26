@@ -152,11 +152,12 @@ void Jeu::deplaceLapin()
             Coord c = a.getCoord();
             int id = a.getId();
             vector<Coord> videc = voisinsVides(c);
+            vector<Coord> videl = voisinsLapins(c);
             if(videc.size() == 0)
             {
                 continue;
             }
-            if(videc.size() >= a.getMinFreeBirthLapin())
+            if(videc.size() >= a.getMinFreeBirthLapin() and videl.size() > 0)
             {
                 int birth = rand() % 100 +1;
                 if(birth <= a.getProbReproLapin())
@@ -211,6 +212,7 @@ void Jeu::deplaceRenard()
             int id = a.getId();
             vector<Coord> videl = voisinsLapins(c);
             vector<Coord> videc = voisinsVides(c);
+            vector<Coord> vider = voisinsRenards(c);
 
             if(videc.size() == 0 and videl.size() == 0)
             {
@@ -234,7 +236,7 @@ void Jeu::deplaceRenard()
                 jGri.videCase(c);
                 jPop.setFoodInit(a.getId(), jPop.get(id).getFoodInit() + a.getFoodLapin());
 
-                if(jPop.get(id).getFoodInit() >= jPop.get(i).getFoodReprod())
+                if(jPop.get(id).getFoodInit() >= jPop.get(i).getFoodReprod() and vider.size() > 0)
                 {
                     int birth = rand() % 100 + 1;
                     if(birth <= jPop.get(i).getProbBirthRenard())
@@ -261,7 +263,7 @@ void Jeu::deplaceRenard()
                     jPop.supprime(a.getId());
                     jGri.videCase(newc);
                 }
-                if(jPop.get(i).getFoodInit() >= jPop.get(i).getFoodReprod())
+                if(jPop.get(i).getFoodInit() >= jPop.get(i).getFoodReprod() and vider.size() > 0)
                 {
                     int birth = rand() % 100 + 1;
                     if(birth <= jPop.get(i).getProbBirthRenard())

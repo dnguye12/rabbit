@@ -27,7 +27,7 @@ private:
     int FoodLapin = 5;
     int FoodReprod = 8;
     int MaxFood = 10;
-    int ProbBirthRenard = 5;
+    int ProbBirthRenard = 8;
 public:
     //Constructors
     Animal();

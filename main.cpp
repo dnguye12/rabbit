@@ -2,15 +2,15 @@
 #include <thread>
 #include <vector>
 #include <iostream>
-using namespace std;
+#include <SFML/Graphics.hpp>
 
-#include "coord.hpp"
-#include "animal.hpp"
+using namespace std;
+using namespace sf;
+
 #include "jeu.hpp"
 
 int main()
 {
-
 
 
     /*
@@ -34,6 +34,7 @@ int main()
     for(int i = 0; i < hekoer.size(); i++) {
         cout << hekoer[i].getLin() << " "<< hekoer[i].getCol() << endl;
     }*/
+
    while(j.verifieGrille())
     {
         system("cls");
