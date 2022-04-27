@@ -28,7 +28,11 @@ public:
 
     void deplace();
 
-//private:
+    int lapinPop() const;
+
+    int renardPop() const;
+
+private:
     Population jPop;
     Grille jGri;
 };

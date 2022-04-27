@@ -27,7 +27,7 @@ public:
 
     int renardPop() const;
 
-//private:
+private:
     vector<vector<Animal>> board;
 };
 

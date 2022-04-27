@@ -67,16 +67,6 @@ void Jeu::affiche() const
         }
         cout << endl;
     }
-    cout << "Lapin Population: " << jPop.getIds(Espece::lapin).size() << endl << jGri.lapinPop() << endl;
-    cout << "Renard Population: " << jPop.getIds(Espece::renard).size() << endl << jGri.renardPop() << endl;
-/*
-    for(int i = 0; i < 100; i++)
-    {
-        if(jPop.pop[i].getEspece() == Espece::renard)
-        {
-            cout << i <<". " << jPop.pop[i].getAge() << endl;
-        }
-    }*/
 }
 
 bool Jeu::verifieGrille() const
@@ -314,4 +304,12 @@ bool vectorContient(vector<int> vec, int x)
         }
     }
     return false;
+}
+
+int Jeu::lapinPop() const {
+    return jGri.lapinPop();
+}
+
+int Jeu::renardPop() const {
+    return jGri.renardPop();
 }

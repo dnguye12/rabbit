@@ -29,7 +29,7 @@ public:
     void setFoodInit(int id, int i);
 
     void aged(int id);
-//private:
+private:
     Animal pop[TAILLEGRILLE * TAILLEGRILLE];
     vector<int> freeId;
 };
