@@ -32,7 +32,7 @@ public:
 
     int renardPop() const;
 
-private:
+//private:
     Population jPop;
     Grille jGri;
 };
