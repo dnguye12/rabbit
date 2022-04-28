@@ -1,6 +1,8 @@
 #ifndef TILEMAP_HPP_INCLUDED
 #define TILEMAP_HPP_INCLUDED
 
+#include "SFML/Graphics.hpp"
+
 //https://www.sfml-dev.org/tutorials/2.5/graphics-vertex-array.php#example-tile-map
 class TileMap : public sf::Drawable, public sf::Transformable
 {
