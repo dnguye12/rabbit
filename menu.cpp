@@ -2,6 +2,7 @@
 
 #include "menu.hpp"
 #include "jeu.hpp"
+#include "tilemap.hpp"
 
 using namespace std;
 
@@ -49,29 +50,30 @@ void Menu::draw(RenderWindow &window)
 
 void Menu::moveUp()
 {
-        text[selectedItem].setColor(Color::White);
-        selectedItem--;
-        if(selectedItem <= -1)
-        {
-            selectedItem = 2;
-        }
-        text[selectedItem].setColor(Color::Red);
+    text[selectedItem].setColor(Color::White);
+    selectedItem--;
+    if(selectedItem <= -1)
+    {
+        selectedItem = 2;
+    }
+    text[selectedItem].setColor(Color::Red);
 
 }
 
 void Menu::moveDown()
 {
-        text[selectedItem].setColor(Color::White);
-        selectedItem++;
-        if(selectedItem >= 3)
-        {
-            selectedItem = 0;
-        }
-        text[selectedItem].setColor(Color::Red);
+    text[selectedItem].setColor(Color::White);
+    selectedItem++;
+    if(selectedItem >= 3)
+    {
+        selectedItem = 0;
+    }
+    text[selectedItem].setColor(Color::Red);
 
 }
 
-void Menu::MainMenu() {
+void Menu::MainMenu()
+{
     RenderWindow window(VideoMode(600,600), "Main Menu");
 
     Menu menu(window.getSize().x, window.getSize().y);
@@ -95,7 +97,111 @@ void Menu::MainMenu() {
                     break;
 
                 case Keyboard::Return:
-                    switch(menu.getPressesd()) {
+                    switch(menu.getPressesd())
+                    {
+                    case 0:{
+                        window.close();
+                        bool wait = true;
+
+                        srand(time(0));
+                        Clock clk;
+                        clk.restart();
+                        const float update_delay = 0.01;
+
+                        int cell_size;
+                        string tile_name;
+                        if(TAILLEGRILLE <= 20)
+                        {
+                            cell_size = 20;
+                            tile_name = "tile20.png";
+                        }
+                        else if(TAILLEGRILLE > 20 and TAILLEGRILLE <= 70)
+                        {
+                            cell_size = 10;
+                            tile_name = "tile10.png";
+                        }
+                        else
+                        {
+                            cell_size = 5;
+                            tile_name = "tile5.png";
+                        }
+
+                        Jeu j{};
+                        sf::RenderWindow window1(sf::VideoMode(TAILLEGRILLE * cell_size, TAILLEGRILLE * cell_size), "Simulation Display");
+
+                        int level[TAILLEGRILLE * TAILLEGRILLE];
+                        for(int l = 0; l < TAILLEGRILLE; l++)
+                        {
+                            for(int c = 0; c < TAILLEGRILLE; c++)
+                            {
+                                Coord co {l, c};
+                                Animal a = j.jGri.getAnimal(co);
+                                if(a.getEspece() == Espece::lapin)
+                                {
+                                    level[co.toInt()] = 1;
+                                }
+                                else if (a.getEspece() == Espece::renard)
+                                {
+                                    level[co.toInt()] = 2;
+                                }
+                                else
+                                {
+                                    level[co.toInt()] = 0;
+                                }
+                            }
+                        }
+                        TileMap map;
+                        if (!map.load(tile_name, sf::Vector2u(cell_size, cell_size), level, TAILLEGRILLE, TAILLEGRILLE))
+                            throw invalid_argument("tile not found");
+
+                        while (window1.isOpen())
+                        {
+                            sf::Event e;
+                            while (window1.pollEvent(e))
+                            {
+                                if(e.type == sf::Event::Closed or e.key.code == Keyboard::Escape)
+                                    window1.close();
+                                if(e.type == Event::KeyReleased and e.key.code == Keyboard::Space)
+                                {
+                                    wait = !wait;
+                                }
+                            }
+                            if (clk.getElapsedTime().asSeconds() > update_delay && !wait)
+                            {
+                                j.deplace();
+                                for(int l = 0; l < TAILLEGRILLE; l++)
+                                {
+                                    for(int c = 0; c < TAILLEGRILLE; c++)
+                                    {
+                                        Coord co {l, c};
+                                        Animal a = j.jGri.getAnimal(co);
+                                        if(a.getEspece() == Espece::lapin)
+                                        {
+                                            level[co.toInt()] = 1;
+                                        }
+                                        else if (a.getEspece() == Espece::renard)
+                                        {
+                                            level[co.toInt()] = 2;
+                                        }
+                                        else
+                                        {
+                                            level[co.toInt()] = 0;
+                                        }
+                                    }
+                                }
+                                map.load(tile_name, sf::Vector2u(cell_size, cell_size), level, TAILLEGRILLE, TAILLEGRILLE);
+                                clk.restart();
+                            }
+
+                            window1.clear();
+                            window1.draw(map);
+                            window1.display();
+
+
+                        }
+
+
+                        break;}
                     case 2:
                         window.close();
                         break;
