@@ -6,6 +6,8 @@
 #include "jeu.hpp"
 #include "tilemap.hpp"
 
+#include <SFML/Audio.hpp>
+
 using namespace std;
 
 Menu::Menu(float w, float h)
@@ -23,6 +25,13 @@ Menu::~Menu()
 
 void Menu::MainMenu()
 {
+    Image icon;
+    icon.loadFromFile("icon.png");
+    Music music;
+    if (!music.openFromFile("music.ogg"))
+        throw invalid_argument("Music not found");
+    music.setLoop(true);
+    music.play();
     int cell_size;
     string tile_name;
     if(TAILLEGRILLE <= 20)
@@ -41,15 +50,15 @@ void Menu::MainMenu()
         tile_name = "tile5.png";
     }
 
-/*
-    Texture texture;
-    if(!texture.loadFromFile("logo1.png"))
-    {
-        throw invalid_argument("Logo not found");
-    }
-    Sprite sprite;
-    sprite.setTexture(texture);
-    sprite.setPosition(Vector2f(120.f, 10.f));*/
+    /*
+        Texture texture;
+        if(!texture.loadFromFile("logo1.png"))
+        {
+            throw invalid_argument("Logo not found");
+        }
+        Sprite sprite;
+        sprite.setTexture(texture);
+        sprite.setPosition(Vector2f(120.f, 10.f));*/
 
     Texture texture1;
     if(!texture1.loadFromFile("bg.jpg"))
@@ -125,6 +134,7 @@ void Menu::MainMenu()
 
 
     RenderWindow window(VideoMode(TAILLEGRILLE * cell_size,TAILLEGRILLE * cell_size + 125), "Main Menu");
+    window.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
     Menu menu(window.getSize().x, window.getSize().y);
 
@@ -143,7 +153,8 @@ void Menu::MainMenu()
                     {
                         window.close();
                     }
-                    if (start.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
+                    if (start.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
+                    {
                         window.close();
                         bool wait = true;
 
@@ -155,6 +166,7 @@ void Menu::MainMenu()
 
 
                         sf::RenderWindow window1(sf::VideoMode(TAILLEGRILLE * cell_size, TAILLEGRILLE * cell_size + 100), "Simulation Display");
+                        window1.setIcon(icon.getSize().x, icon.getSize().y, icon.getPixelsPtr());
 
                         int level[TAILLEGRILLE * TAILLEGRILLE];
                         for(int l = 0; l < TAILLEGRILLE; l++)
