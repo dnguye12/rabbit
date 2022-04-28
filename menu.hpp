@@ -6,7 +6,7 @@
 using namespace sf;
 using namespace std;
 
-#define MENU_ITEMS 3
+#define MENU_ITEMS 2
 
 class Menu
 {
@@ -14,23 +14,12 @@ public:
     Menu(float w, float h);
     ~Menu();
 
-    void draw(RenderWindow &window);
-    void moveUp();
-    void moveDown();
-    int getPressesd() const{
-        return selectedItem;
-    }
-
     void MainMenu();
 
 private:
-    int selectedItem;
     Font font;
-    Text text[MENU_ITEMS];
     Texture imageSource;
 };
-
-
 
 
 #endif // MENU_HPP_INCLUDED

@@ -14,26 +14,6 @@ Menu::Menu(float w, float h)
     {
         throw invalid_argument("Fonts not found");
     }
-
-    text[0].setFont(font);
-    text[0].setFillColor(Color::Red);
-    text[0].setString("Start");
-    text[0].setCharacterSize(h / 20);
-    text[0].setPosition(Vector2f(w/2 - (text[0].getLocalBounds().width/2), h / (MENU_ITEMS + 1)* 1));
-
-    text[1].setFont(font);
-    text[1].setFillColor(Color::White);
-    text[1].setString("Continue");
-    text[1].setCharacterSize(h / 20);
-    text[1].setPosition(Vector2f(w/2 - (text[0].getLocalBounds().width/2), h / (MENU_ITEMS + 1)* 2));
-
-    text[2].setFont(font);
-    text[2].setFillColor(Color::White);
-    text[2].setString("Quit");
-    text[2].setCharacterSize(h / 20);
-    text[2].setPosition(Vector2f(w/2 - (text[0].getLocalBounds().width/2), h / (MENU_ITEMS + 1)* 3));
-
-    selectedItem = 0;
 }
 
 Menu::~Menu()
@@ -41,42 +21,8 @@ Menu::~Menu()
 
 }
 
-void Menu::draw(RenderWindow &window)
-{
-    for(int i =0; i < MENU_ITEMS; i++)
-    {
-
-        window.draw(text[i]);
-    }
-}
-
-void Menu::moveUp()
-{
-    text[selectedItem].setColor(Color::White);
-    selectedItem--;
-    if(selectedItem <= -1)
-    {
-        selectedItem = 2;
-    }
-    text[selectedItem].setColor(Color::Red);
-
-}
-
-void Menu::moveDown()
-{
-    text[selectedItem].setColor(Color::White);
-    selectedItem++;
-    if(selectedItem >= 3)
-    {
-        selectedItem = 0;
-    }
-    text[selectedItem].setColor(Color::Red);
-
-}
-
 void Menu::MainMenu()
 {
-    size_t gene = 0;
     int cell_size;
     string tile_name;
     if(TAILLEGRILLE <= 20)
@@ -94,6 +40,48 @@ void Menu::MainMenu()
         cell_size = 5;
         tile_name = "tile5.png";
     }
+
+/*
+    Texture texture;
+    if(!texture.loadFromFile("logo1.png"))
+    {
+        throw invalid_argument("Logo not found");
+    }
+    Sprite sprite;
+    sprite.setTexture(texture);
+    sprite.setPosition(Vector2f(120.f, 10.f));*/
+
+    Texture texture1;
+    if(!texture1.loadFromFile("bg.jpg"))
+    {
+        throw invalid_argument("Background not found");
+    }
+    Sprite sprite1;
+    sprite1.setTexture(texture1);
+
+    Texture texture2;
+    if(!texture2.loadFromFile("startbutton.png"))
+    {
+        throw invalid_argument("Start button not found");
+    }
+    Sprite start;
+    start.setTexture(texture2);
+    start.setPosition(Vector2f(TAILLEGRILLE * cell_size/2 - (start.getLocalBounds().width/2), (TAILLEGRILLE * cell_size + 220) / 4 - 30));
+
+    Texture texture3;
+    if(!texture3.loadFromFile("stopbutton.png"))
+    {
+        throw invalid_argument("Stop button not found");
+    }
+    Sprite stop;
+    stop.setTexture(texture3);
+    stop.setPosition(Vector2f(TAILLEGRILLE * cell_size/2 - (start.getLocalBounds().width/2), (TAILLEGRILLE * cell_size + 220) / 4 + 180));
+
+
+
+
+    size_t gene = 0;
+
 
 
     Jeu j {};
@@ -148,21 +136,14 @@ void Menu::MainMenu()
         {
             switch(e.type)
             {
-            case Event::KeyReleased:
-                switch(e.key.code)
+            case Event::MouseButtonPressed:
+                if(Mouse::isButtonPressed(Mouse::Left))
                 {
-                case Keyboard::Up:
-                    menu.moveUp();
-                    break;
-                case Keyboard::Down:
-                    menu.moveDown();
-                    break;
-
-                case Keyboard::Return:
-                    switch(menu.getPressesd())
+                    if (stop.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window))))
                     {
-                    case 0:
-                    {
+                        window.close();
+                    }
+                    if (start.getGlobalBounds().contains(window.mapPixelToCoords(sf::Mouse::getPosition(window)))) {
                         window.close();
                         bool wait = true;
 
@@ -292,17 +273,8 @@ void Menu::MainMenu()
 
 
                         }
-
-
-                        break;
                     }
-                    case 2:
-                        window.close();
-                        break;
-                    }
-                    break;
                 }
-
                 break;
             case Event::Closed:
                 window.close();
@@ -311,8 +283,10 @@ void Menu::MainMenu()
         }
         window.clear();
 
-        menu.draw(window);
-
+        window.draw(sprite1);
+        //window.draw(sprite);
+        window.draw(start);
+        window.draw(stop);
         window.display();
     }
 }
