@@ -19,11 +19,11 @@ Jeu::Jeu()
             }
         }
         helper = rand() % 100 + 1;
-        if(helper <= 7)
+        if(helper < 7)
         {
             ajouteAnimal(Espece::renard, c);
         }
-        else if(helper > 7 and helper <= 27)
+        else if(helper >= 7 and helper <= 27)
         {
             ajouteAnimal(Espece::lapin, c);
         }
@@ -193,43 +193,44 @@ void Jeu::deplaceLapin()
 
 void Jeu::deplaceRenard()
 {
-    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    for(int i = 0; i < TAILLEGRILLE * TAILLEGRILLE; i++)
     {
         Animal a = jPop.getIndex(i);
-        if(a.getEspece() == Espece::renard)
+        if(a.getEspece() != Espece::renard)
+        {
+            continue;
+        }
+        else
         {
             Coord c = a.getCoord();
             int id = a.getId();
-            vector<Coord> videl = voisinsLapins(c);
-            vector<Coord> videc = voisinsVides(c);
-            vector<Coord> vider = voisinsRenards(c);
-
-            if(videc.size() == 0 and videl.size() == 0)
+            vector<Coord>videc = voisinsVides(c);
+            vector<Coord>videl = voisinsLapins(c);
+            vector<Coord>vider = voisinsRenards(c);
+            if(videl.size() == 0 and videc.size() == 0)
             {
-                jPop.setFoodInit(jPop.get(id).getId(), jPop.get(id).getFoodInit() - 1);
-                if(jPop.get(i).getFoodInit() <= 0)
+                jPop.setFoodInit(id, a.getFoodInit() - 1);
+                if(jPop.get(id).getFoodInit() <= 0)
                 {
-                    jPop.supprime(a.getId());
+                    jPop.supprime(id);
                     jGri.videCase(c);
                 }
                 continue;
             }
-            int choix;
-            if(videl.size() > 0)
+            else if(videl.size() > 0)
             {
-                choix = rand() % videl.size();
-                int lid = jGri.getCase(videl[choix]);
+                int choix = rand() % videl.size();
+                Coord newco = videl[choix];
+                int lid = jGri.getAnimal(newco).getId();
                 jPop.supprime(lid);
-                jGri.videCase(videl[choix]);
-                jPop.changeCoord(id, videl[choix]);
-                jGri.setCase(a.getId(), videl[choix], jPop);
+                jGri.videCase(newco);
+                jPop.changeCoord(id, newco);
+                jGri.setCase(id, newco, jPop);
                 jGri.videCase(c);
-                jPop.setFoodInit(a.getId(), jPop.get(id).getFoodInit() + a.getFoodLapin());
-
-                if(jPop.get(id).getFoodInit() >= jPop.get(i).getFoodReprod() and vider.size() > 0)
-                {
+                jPop.setFoodInit(id, jPop.get(id).getFoodInit() + a.getFoodLapin());
+                if(jPop.get(id).getFoodInit() > a.getFoodReprod() and vider.size() >= 0) {
                     int birth = rand() % 100 + 1;
-                    if(birth <= jPop.get(i).getProbBirthRenard())
+                    if(birth <= a.getProbBirthRenard())
                     {
                         int nid = jPop.set(Espece::renard, c);
                         if(nid != -1)
@@ -239,38 +240,37 @@ void Jeu::deplaceRenard()
 
                     }
                 }
+                continue;
+            }else {
+                int choix = rand() % videc.size();
+                Coord newco = videc[choix];
+                jPop.changeCoord(id, newco);
+                jGri.setCase(id, newco, jPop);
+                jGri.videCase(c);
+                jPop.setFoodInit(id, a.getFoodInit() - 1);
+                if(jPop.get(id).getFoodInit() <= 0)
+                {
+                    jPop.supprime(id);
+                    jGri.videCase(newco);
+                }
+                if(jPop.get(id).getFoodInit() > a.getFoodReprod() and vider.size() >= 0) {
+                    int birth = rand() % 100 + 1;
+                    if(birth <= a.getProbBirthRenard())
+                    {
+                        int nid = jPop.set(Espece::renard, c);
+                        if(nid != -1)
+                        {
+                            jGri.setCase(nid, Espece::renard, c);
+                        }
+
+                    }
+                }
+            continue;
             }
-            else
             {
-                choix = rand() % videc.size();
-                Coord newc = videc[choix];
-                jPop.changeCoord(id, newc);
-                jGri.setCase(a.getId(), newc, jPop);
-                jGri.videCase(c);
-                jPop.setFoodInit(jPop.get(id).getId(), jPop.get(id).getFoodInit() - 1);
-                if(jPop.get(i).getFoodInit() <= 0)
-                {
-                    jPop.supprime(a.getId());
-                    jGri.videCase(newc);
-                }
-                if(jPop.get(i).getFoodInit() >= jPop.get(i).getFoodReprod() and vider.size() > 0)
-                {
-                    int birth = rand() % 100 + 1;
-                    if(birth <= jPop.get(i).getProbBirthRenard())
-                    {
-                        int nid = jPop.set(Espece::renard, c);
-                        if(nid != -1)
-                        {
-                            jGri.setCase(nid, Espece::renard, c);
-                        }
-
-                    }
-                }
 
             }
-
         }
-
     }
 }
 void Jeu::deplace()
@@ -278,11 +278,13 @@ void Jeu::deplace()
     deplaceLapin();
     deplaceRenard();
 
-    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++) {
+    for(int i = 0; i < TAILLEGRILLE*TAILLEGRILLE; i++)
+    {
         Animal a = jPop.getIndex(i);
         int id = a.getId();
         Coord c = a.getCoord();
-        if(a.getEspece() != Espece::rien) {
+        if(a.getEspece() != Espece::rien)
+        {
             jPop.aged(id);
             if(jPop.get(id).getAge() > a.getMaxAge())
             {
@@ -306,10 +308,12 @@ bool vectorContient(vector<int> vec, int x)
     return false;
 }
 
-int Jeu::lapinPop() const {
+int Jeu::lapinPop() const
+{
     return jGri.lapinPop();
 }
 
-int Jeu::renardPop() const {
+int Jeu::renardPop() const
+{
     return jGri.renardPop();
 }

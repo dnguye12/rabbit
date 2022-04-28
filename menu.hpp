@@ -4,6 +4,7 @@
 #include "SFML/Graphics.hpp"
 
 using namespace sf;
+using namespace std;
 
 #define MENU_ITEMS 3
 
@@ -28,5 +29,8 @@ private:
     Text text[MENU_ITEMS];
     Texture imageSource;
 };
+
+
+
 
 #endif // MENU_HPP_INCLUDED

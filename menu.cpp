@@ -1,6 +1,7 @@
 #include <stdexcept>
 
 #include "menu.hpp"
+#include "jeu.hpp"
 
 using namespace std;
 

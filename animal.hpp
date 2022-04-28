@@ -20,14 +20,14 @@ private:
 
     //stats lapin
     int MinFreeBirthLapin = 4;
-    int ProbReproLapin = 60;
+    int ProbReproLapin = 50;
 
     //stats renard
     int FoodInit = 5;
     int FoodLapin = 5;
     int FoodReprod = 8;
     int MaxFood = 10;
-    int ProbBirthRenard = 8;
+    int ProbBirthRenard = 5;
 public:
     //Constructors
     Animal();
