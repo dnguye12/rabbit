@@ -27,11 +27,11 @@ void Menu::MainMenu()
 {
     Image icon;
     icon.loadFromFile("icon.png");
-    Music music;
+    /*Music music;
     if (!music.openFromFile("music.ogg"))
         throw invalid_argument("Music not found");
     music.setLoop(true);
-    music.play();
+    music.play();*/
     int cell_size;
     string tile_name;
     if(TAILLEGRILLE <= 20)
