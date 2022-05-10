@@ -27,11 +27,11 @@ void Menu::MainMenu()
 {
     Image icon;
     icon.loadFromFile("icon.png");
-    /*Music music;
+    Music music;
     if (!music.openFromFile("music.ogg"))
         throw invalid_argument("Music not found");
     music.setLoop(true);
-    music.play();*/
+    music.play();
     int cell_size;
     string tile_name;
     if(TAILLEGRILLE <= 20)
@@ -124,7 +124,7 @@ void Menu::MainMenu()
     RectangleShape cell_legend_lapin(Vector2f(cell_size,cell_size));
     const Color rabbit_color(0,255,255);
     cell_legend_lapin.setFillColor(rabbit_color);
-    cell_legend_lapin.setPosition(TAILLEGRILLE * cell_size - 224, TAILLEGRILLE * cell_size + 40);
+    cell_legend_lapin.setPosition(TAILLEGRILLE * cell_size - 225, TAILLEGRILLE * cell_size + 40);
 
     RectangleShape cell_legend_renard(Vector2f(cell_size,cell_size));
     const Color renard_color(255,0,0);
@@ -161,7 +161,7 @@ void Menu::MainMenu()
                         srand(time(0));
                         Clock clk;
                         clk.restart();
-                        const float update_delay = 0.01;
+                        const float update_delay = 0.005 * (200/TAILLEGRILLE);
 
 
 
@@ -279,8 +279,10 @@ void Menu::MainMenu()
                             window1.draw(text2);
                             window1.draw(text3);
                             window1.draw(text4);
+                            if(window1.getSize().x >=500) {
                             window1.draw(cell_legend_lapin);
                             window1.draw(cell_legend_renard);
+                            }
                             window1.display();
 
 
